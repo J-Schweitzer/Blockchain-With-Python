@@ -10,6 +10,7 @@ Marcos implementados: **I1** (núcleo) e **I2** (permissão e consenso).
 | `teste_i1_i2.py` | 13 testes automatizados |
 | `demo.py` | Demonstração em terminal |
 
+
 ## Executar
 
 ```bash
