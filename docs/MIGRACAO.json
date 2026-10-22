@@ -1,0 +1,74 @@
+[
+  {
+    "original": "api.py",
+    "atual": "src\\blockchain_tcc\\api.py",
+    "sha256_original": "7c4b97c7eff2ebd1653a6326d0b0a1706467aa88eb91938ac9bd7038c3fa1cbd",
+    "sha256_atual": "e0a9ec69147e978028cf0d10599a0d7be67bfa2e42610b0ccb72dbbc5faa5b46"
+  },
+  {
+    "original": "armazenamento.py",
+    "atual": "src\\blockchain_tcc\\armazenamento.py",
+    "sha256_original": "dfbf65d52cff834db7acbb959f9d6033e6257446dd74a4794dbdd6e860f6e20d",
+    "sha256_atual": "6503e24d783b4f9dbad24634442b74e95e7cc148e9eda4dfc816015dc8f54efb"
+  },
+  {
+    "original": "cliente_api.py",
+    "atual": "src\\blockchain_tcc\\cliente_api.py",
+    "sha256_original": "755ba2a87bef56c816b0dd54f09bffc98762b05b674bede5d9ce5cec816bb6e8",
+    "sha256_atual": "755ba2a87bef56c816b0dd54f09bffc98762b05b674bede5d9ce5cec816bb6e8"
+  },
+  {
+    "original": "cofre.py",
+    "atual": "src\\blockchain_tcc\\cofre.py",
+    "sha256_original": "fe83026b919f8bfabd46f0362290b2f170890a7c4a3c5a9416c83850193677fe",
+    "sha256_atual": "53784103b65497ed8d774212f7679087421c84e8cc9f88a407365eb6aff05847"
+  },
+  {
+    "original": "formato.py",
+    "atual": "src\\blockchain_tcc\\formato.py",
+    "sha256_original": "08d3ac81abf7656c90fc637adb0766ee04433a081fcd1e2d981c84ef6ee19683",
+    "sha256_atual": "08d3ac81abf7656c90fc637adb0766ee04433a081fcd1e2d981c84ef6ee19683"
+  },
+  {
+    "original": "identidade.py",
+    "atual": "src\\blockchain_tcc\\identidade.py",
+    "sha256_original": "13d670973b0a6b1cebc583da4fe28405b037911234c488305404cec616fb4e43",
+    "sha256_atual": "7e50f36031b0e4519084059f0467cd7ad1fc41b747849694dbc69a423a237480"
+  },
+  {
+    "original": "iniciar_api.py",
+    "atual": "src\\blockchain_tcc\\iniciar_api.py",
+    "sha256_original": "38e98f3d273593f7afad69588e4625a7f154982bccf6323ccc9da9ac33e7bd89",
+    "sha256_atual": "5285c8dad63366c30b3b2fc09a3d47ab8750223658f5a8a521f9b01b0a7692fe"
+  },
+  {
+    "original": "nucleo.py",
+    "atual": "src\\blockchain_tcc\\nucleo.py",
+    "sha256_original": "63c2b9c1e31761f3aab640f67190b8f81a5e5ed850194d83542bc5fc510f9074",
+    "sha256_atual": "0b2e25f14d3fa54503790687c9614e800076fb6bd3d9c090644f8b9d4fc8fd34"
+  },
+  {
+    "original": "preparar_demo_api.py",
+    "atual": "src\\blockchain_tcc\\preparar_demo_api.py",
+    "sha256_original": "8cb66e36eb860ea6cfa49072b535e1158c39e658db31757b76623cb6c8bbcce9",
+    "sha256_atual": "7c171cd07cd299655f6c0a4e970ebab12a768e7356a9f9788b86e08c47ef05e4"
+  },
+  {
+    "original": "servico.py",
+    "atual": "src\\blockchain_tcc\\servico.py",
+    "sha256_original": "0733b361570508b745b69dde7f5076533b887001351d03099409ed288afea41c",
+    "sha256_atual": "7bc731e85530f8a21d0c957c7abd89d2d07a32968952d8470878246542b1173b"
+  },
+  {
+    "original": "simulador_iot.py",
+    "atual": "src\\blockchain_tcc\\simulador_iot.py",
+    "sha256_original": "fabece483d532d6ba729737e91600683b7f42bce13dc1cd58a0ac230293cab2f",
+    "sha256_atual": "750a55fcd0342892385805577a9130bc195d64c19dc0f5c141ca2f1e5180421c"
+  },
+  {
+    "original": "sistema.py",
+    "atual": "src\\blockchain_tcc\\sistema.py",
+    "sha256_original": "d9d93ac941f3851ecaedc3435847ba3a18ea380ecacb1d8195fa968c35d7c849",
+    "sha256_atual": "17d8991de7b9c2bd3ef9ba8d434830c5c7c367d701fe1458510466cbb880418b"
+  }
+]
