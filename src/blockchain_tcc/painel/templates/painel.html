@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>IoT Ledger · Monitoramento</title>
+  <link rel="icon" href="/painel/static/marca.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/painel/static/painel.css">
+  <script src="/painel/static/painel.js" defer></script>
+</head>
+<body>
+<svg class="svg-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-sensor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4m8.4-8.4a6 6 0 0 1 0 8.4M4.5 4.5a10.6 10.6 0 0 0 0 15m15-15a10.6 10.6 0 0 1 0 15"/></symbol>
+  <symbol id="i-arrows" viewBox="0 0 24 24"><path d="M4 7h15m-4-4 4 4-4 4M20 17H5m4-4-4 4 4 4"/></symbol>
+  <symbol id="i-cube" viewBox="0 0 24 24"><path d="m12 2 9 5v10l-9 5-9-5V7l9-5Zm0 10 9-5m-9 5L3 7m9 5v10M7.5 4.5l9 5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="m12 2 8 3v6c0 5-3.5 8.7-8 11-4.5-2.3-8-6-8-11V5l8-3Z"/><path d="m8 12 3 3 5-6"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v16M3 3c4-1 6 0 9 2 3-2 5-3 9-2v16c-4-1-6 0-9 2-3-2-5-3-9-2V3Z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M6 6a8 8 0 0 1 13 2M5 16a8 8 0 0 0 13 2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-5-5 5 5-5 5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+  <symbol id="i-temp" viewBox="0 0 24 24"><path d="M9 14.5V5a3 3 0 0 1 6 0v9.5a5 5 0 1 1-6 0ZM12 8v10"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2C9 7 4 11 4 15a8 8 0 0 0 16 0c0-4-5-8-8-13Z"/><path d="M8 16c0 2 1 3 3 3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+  <symbol id="i-exit" viewBox="0 0 24 24"><path d="M9 4H4v16h5m5-13 5 5-5 5m-6-5h11"/></symbol>
+</svg>
+
+<section id="auth-screen" class="auth-screen" aria-label="Acesso ao painel">
+  <div class="auth-story">
+    <a class="brand brand-large" href="/painel"><span class="brand-mark"><svg><use href="#i-cube"/></svg></span><span>IoT Ledger<span class="brand-sub">BLOCKCHAIN & INTERNET DAS COISAS</span></span></a>
+    <div class="auth-intro"><span class="eyebrow light">PROJETO DE CONCLUSÃO DE CURSO</span><h1>Da leitura ao registro<br><em>verificável.</em></h1><p>Explore o caminho de uma leitura IoT: identidade, assinatura, validação e histórico.</p></div>
+    <div class="auth-chain" aria-hidden="true"><div><svg><use href="#i-sensor"/></svg><span>Sensor</span></div><span class="chain-line"></span><div><svg><use href="#i-shield"/></svg><span>Validação</span></div><span class="chain-line"></span><div><svg><use href="#i-cube"/></svg><span>Registro</span></div></div>
+    <p class="auth-foot">UCDB <span>·</span> Integridade e rastreabilidade de dados IoT</p>
+  </div>
+  <div class="auth-form-wrap"><form id="auth-form" class="auth-form">
+    <span class="tag"><span class="dot"></span> APLICAÇÃO LOCAL</span>
+    <h2>Acesse o observatório</h2><p>Use o token administrativo definido ao iniciar a API.</p>
+    <label for="token">Token administrativo</label><input id="token" name="token" type="password" autocomplete="off" required minlength="32" maxlength="256" placeholder="Insira seu token de acesso" spellcheck="false">
+    <p id="auth-error" class="field-error" role="alert" hidden></p>
+    <button id="login-button" class="button primary full" type="submit">Conectar ao painel <svg><use href="#i-arrow"/></svg></button>
+    <p class="auth-note"><svg><use href="#i-lock"/></svg> O token fica somente na memória desta aba. Ao recarregar, conecte-se novamente.</p>
+  </form></div>
+</section>
+
+<div id="app" class="app-shell" hidden>
+  <button id="nav-backdrop" class="nav-backdrop" aria-label="Fechar navegação" hidden></button>
+  <aside id="sidebar" class="sidebar">
+    <a class="brand" href="/painel"><span class="brand-mark"><svg><use href="#i-cube"/></svg></span><span>IoT Ledger<span class="brand-sub">OBSERVATÓRIO DE DADOS</span></span></a>
+    <div class="sidebar-label">MONITORAMENTO</div>
+    <nav aria-label="Navegação principal">
+      <button class="nav-item active" data-nav="overview" aria-current="page"><svg><use href="#i-grid"/></svg>Visão geral</button>
+      <button class="nav-item" data-nav="sensors"><svg><use href="#i-sensor"/></svg>Sensores</button>
+      <button class="nav-item" data-nav="transactions"><svg><use href="#i-arrows"/></svg>Transações<span id="nav-pending" class="nav-count">0</span></button>
+      <button class="nav-item" data-nav="blocks"><svg><use href="#i-cube"/></svg>Blocos</button>
+      <button class="nav-item" data-nav="integrity"><svg><use href="#i-shield"/></svg>Integridade</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <button class="nav-item" data-nav="guide"><svg><use href="#i-book"/></svg>Guia da apresentação</button>
+      <div class="sidebar-network"><span class="dot"></span><div><strong>Ambiente local</strong><span id="network-short" class="mono">Aguardando conexão</span></div></div>
+      <div class="sidebar-project"><span class="avatar">UC</span><div><strong>Projeto de TCC</strong><span>Blockchain em ambientes IoT</span></div></div>
+    </div>
+  </aside>
+  <div class="main-shell">
+    <header class="topbar"><div class="breadcrumb"><button id="menu-button" class="icon-button mobile-only" aria-label="Abrir navegação" aria-expanded="false"><svg><use href="#i-menu"/></svg></button><span>Monitoramento</span><span class="slash">/</span><strong id="breadcrumb-current">Visão geral</strong></div><div class="topbar-right"><span id="connection-badge" class="connection"><span class="dot"></span> Conectado</span><span class="topbar-divider"></span><button id="logout-button" class="icon-button" aria-label="Desconectar" title="Desconectar"><svg><use href="#i-exit"/></svg></button></div></header>
+    <main id="main-content" tabindex="-1">
+      <div class="page-heading"><div><span class="eyebrow" id="page-eyebrow">OBSERVATÓRIO · IoT & BLOCKCHAIN</span><h1 id="page-title">Visão geral da rede</h1><p id="page-subtitle">Acompanhe o percurso dos dados, da origem ao bloco confirmado.</p></div><div class="heading-actions"><button id="refresh-button" class="button subtle"><svg><use href="#i-refresh"/></svg>Atualizar</button><button id="verify-button" class="button outline"><svg><use href="#i-shield"/></svg>Verificar integridade</button></div></div>
+      <div id="global-error" class="banner error" role="alert" hidden></div>
+      <div class="sync-line"><span id="mode-label" class="tag small">AMBIENTE LOCAL</span><span id="sync-time">Aguardando dados</span><button id="auto-button" class="auto-refresh" aria-pressed="true"><span class="pulse-dot"></span>Atualização a cada 6s</button></div>
+
+      <section data-view="overview">
+        <div class="metrics">
+          <article class="metric"><div class="metric-title">Leituras confirmadas<svg><use href="#i-arrows"/></svg></div><strong id="metric-readings">—</strong><span>Registros assinados no histórico</span></article>
+          <article class="metric"><div class="metric-title">Blocos confirmados<svg><use href="#i-cube"/></svg></div><strong id="metric-blocks">—</strong><span>Além do bloco gênese</span></article>
+          <article class="metric"><div class="metric-title">Sensores autorizados<svg><use href="#i-sensor"/></svg></div><strong id="metric-sensors">—</strong><span id="metric-sensors-note">Cadastro de dispositivos</span></article>
+          <article class="metric amber"><div class="metric-title">Na fila de validação<svg><use href="#i-clock"/></svg></div><strong id="metric-pending">—</strong><span>Leituras aguardando um bloco</span></article>
+        </div>
+        <div class="overview-grid">
+          <article class="card chart-card"><div class="card-heading"><div><h2>Leituras dos sensores</h2><p>Últimos registros confirmados</p></div><label class="sr-only" for="chart-sensor">Sensor do gráfico</label><select id="chart-sensor"></select></div><div id="chart-value" class="chart-value"></div><div id="overview-chart" class="chart" aria-label="Gráfico das leituras confirmadas"></div><div class="card-footer"><span><span class="legend-dot"></span> Dados assinados e confirmados</span><span id="chart-sample-count">0 leituras</span></div></article>
+          <article class="card authorities-card"><div class="card-heading"><div><h2>Autoridades da rede</h2><p>Produção de blocos em rodízio local</p></div><span class="mini-label">Ed25519</span></div><div id="authorities-list" class="authorities-list"></div><div class="authority-note"><svg><use href="#i-shield"/></svg><p>Identidades conhecidas. Cada bloco é assinado pela autoridade da vez.</p></div></article>
+          <article class="card recent-card"><div class="card-heading"><div><h2>Blocos recentes</h2><p>O histórico cresce a cada confirmação</p></div><button class="text-button" data-nav="blocks">Explorar todos <span aria-hidden="true">↗</span></button></div><div class="table-wrap"><table><thead><tr><th>Bloco</th><th>Validador</th><th>Leituras</th><th>Hash do bloco</th><th>Registro</th><th></th></tr></thead><tbody id="recent-blocks"></tbody></table></div></article>
+          <article class="card queue-card"><div class="card-heading"><div><h2>Próxima confirmação</h2><p>Leituras recebidas e assinadas</p></div><span id="queue-count" class="pill amber">0 pendentes</span></div><div id="queue-preview" class="queue-preview"></div><div class="queue-actions"><button id="generate-button" class="button subtle full"><svg><use href="#i-plus"/></svg>Gerar leituras simuladas</button><button id="produce-button" class="button primary full"><svg><use href="#i-cube"/></svg><span>Produzir bloco</span></button><p id="queue-hint" class="microcopy">As leituras só entram no histórico após a produção do bloco.</p></div></article>
+        </div>
+        <div class="integrity-strip"><span class="integrity-emblem"><svg><use href="#i-shield"/></svg></span><div><strong id="overview-integrity">Integridade verificada</strong><p id="overview-integrity-note">Hashes e assinaturas verificados ao carregar o histórico.</p></div><button class="text-button" data-nav="integrity">Abrir laboratório <span aria-hidden="true">↗</span></button></div>
+      </section>
+
+      <section data-view="sensors" hidden><div class="section-toolbar"><p id="sensor-total">Dispositivos cadastrados</p><button id="register-button" class="button primary"><svg><use href="#i-plus"/></svg>Cadastrar sensor</button></div><div id="sensor-grid" class="sensor-grid"></div><article id="sensor-history-card" class="card history-card" hidden><div class="card-heading"><div><h2 id="history-title">Histórico do sensor</h2><p id="history-subtitle">Leituras confirmadas e seus blocos de origem</p></div><span id="history-total" class="mini-label"></span></div><div class="table-wrap"><table><thead><tr><th>Data da leitura</th><th>Valor</th><th>Grandeza</th><th>Bloco</th><th>Transação</th></tr></thead><tbody id="history-rows"></tbody></table></div><div id="history-pagination" class="pagination"></div></article></section>
+
+      <section data-view="transactions" hidden><div class="section-toolbar"><div class="segmented" role="group" aria-label="Situação das transações"><button id="tab-pending" class="selected" aria-pressed="true">Pendentes</button><button id="tab-confirmed" aria-pressed="false">Confirmadas</button></div><button id="produce-transactions" class="button primary"><svg><use href="#i-cube"/></svg>Produzir bloco</button></div><article class="card"><div class="card-heading"><div><h2 id="transactions-title">Fila de transações</h2><p id="transactions-note">Recebidas com assinatura válida, aguardando confirmação.</p></div><span id="transactions-total" class="mini-label"></span></div><div class="table-wrap"><table><thead><tr><th>Dispositivo</th><th>Leitura</th><th>Data</th><th>Identificador</th><th>Situação</th><th></th></tr></thead><tbody id="transactions-rows"></tbody></table></div><div id="transactions-pagination" class="pagination"></div></article></section>
+
+      <section data-view="blocks" hidden><article class="card chain-explanation"><span class="feature-icon"><svg><use href="#i-cube"/></svg></span><div><h2>Um registro conectado ao anterior</h2><p>Cada bloco referencia o hash do bloco anterior. Alterações no conteúdo podem ser identificadas pela validação.</p></div><span id="blocks-total" class="pill"></span></article><div id="block-grid" class="block-grid"></div><div id="blocks-pagination" class="pagination"></div></section>
+
+      <section data-view="integrity" hidden><article class="card integrity-status"><span class="integrity-emblem"><svg><use href="#i-shield"/></svg></span><div><h2 id="integrity-title">Verificação do histórico</h2><p id="integrity-description">Confira o encadeamento dos hashes e as assinaturas dos registros.</p></div><button id="integrity-check" class="button outline">Verificar agora</button></article><div class="lab-grid"><article class="card lab-form"><div class="card-heading"><div><span class="eyebrow">LABORATÓRIO DE INTEGRIDADE</span><h2>O que acontece se um dado mudar?</h2><p>Altere uma leitura em uma cópia isolada e observe a validação.</p></div></div><form id="integrity-form"><label for="demo-block">Bloco a analisar</label><input id="demo-block" type="number" min="1" value="1" required><label for="demo-value">Novo valor da primeira leitura</label><input id="demo-value" type="text" value="99.9" maxlength="4096" required><label class="checkbox-label"><input id="demo-recalculate" type="checkbox"><span>Recalcular o hash após alterar o valor<small>Testa também a verificação da assinatura do validador.</small></span></label><button id="demo-run" class="button primary full" type="submit">Executar demonstração <svg><use href="#i-arrow"/></svg></button><p id="demo-availability" class="microcopy">O registro original permanece preservado.</p></form></article><article id="lab-result" class="card lab-result"><span class="lab-illustration"><svg><use href="#i-shield"/></svg></span><h2>Uma alteração, uma evidência</h2><p>Execute o teste para comparar a cadeia original com a cópia modificada.</p><div class="lab-labels"><span class="pill">SHA-256</span><span class="pill">Ed25519</span><span class="pill">Cópia isolada</span></div></article></div><div class="note-card"><strong>Integridade não é veracidade.</strong><p>Uma leitura incorreta, assinada por um sensor autorizado, pode continuar válida. O registro comprova autoria e integridade, sem comprovar a medição física.</p></div></section>
+
+      <section data-view="guide" hidden><div class="guide-intro card"><span class="eyebrow">ROTEIRO PARA A BANCA</span><h2>Uma leitura. Um bloco. Uma evidência.</h2><p>Apresente o fluxo completo do dado e os limites do protótipo com uma demonstração curta.</p></div><div class="guide-steps"><article class="card"><span class="step-number">01</span><h2>Observe a origem</h2><p>Abra Sensores para mostrar as identidades cadastradas e suas chaves públicas.</p><button class="text-button" data-nav="sensors">Ver sensores ↗</button></article><article class="card"><span class="step-number">02</span><h2>Envie as leituras</h2><p>No modo de apresentação, clique em Gerar leituras simuladas. Acompanhe a entrada na fila.</p><button class="text-button" data-nav="overview">Abrir visão geral ↗</button></article><article class="card"><span class="step-number">03</span><h2>Confirme o registro</h2><p>Produza o bloco e mostre o validador, o hash e o vínculo com o bloco anterior.</p><button class="text-button" data-nav="blocks">Explorar blocos ↗</button></article><article class="card"><span class="step-number">04</span><h2>Teste a integridade</h2><p>Altere uma cópia da leitura no laboratório. Depois recalcule o hash para testar a assinatura.</p><button class="text-button" data-nav="integrity">Abrir laboratório ↗</button></article></div><article class="card guide-limits"><h2>O que esta demonstração comprova</h2><div><p><strong>Propriedades demonstradas</strong>Assinatura de leituras e blocos, autorização, rastreabilidade, detecção de adulteração e rejeição de replay.</p><p><strong>Escopo da implementação</strong>Sensores simulados, execução local e rodízio de autoridades. Sem consenso distribuído, sensores físicos ou benchmark de desempenho.</p></div></article></section>
+      <footer class="page-footer"><span>IoT Ledger <span class="footer-separator">/</span> Projeto de TCC · UCDB</span><span>SHA-256 <span>·</span> Ed25519 <span>·</span> SQLite</span></footer>
+    </main>
+  </div>
+</div>
+
+<dialog id="detail-dialog" class="detail-dialog"><div class="dialog-heading"><div><span id="detail-eyebrow" class="eyebrow">REGISTRO VERIFICÁVEL</span><h2 id="detail-title">Detalhes</h2></div><button id="detail-close" class="icon-button" aria-label="Fechar detalhes"><svg><use href="#i-close"/></svg></button></div><div id="detail-content"></div></dialog>
+<dialog id="member-dialog" class="member-dialog"><div class="dialog-heading"><div><span class="eyebrow">IDENTIDADE DO DISPOSITIVO</span><h2 id="member-title">Cadastrar sensor</h2></div><button id="member-close" class="icon-button" aria-label="Fechar cadastro"><svg><use href="#i-close"/></svg></button></div><form id="member-form"><label for="member-name">Nome do dispositivo</label><input id="member-name" required maxlength="128" placeholder="sensor-temp-02"><label for="member-key">Chave pública Ed25519</label><textarea id="member-key" required minlength="64" maxlength="64" spellcheck="false" placeholder="64 caracteres hexadecimais"></textarea><p class="microcopy">Informe somente a chave pública. A chave privada permanece com o dispositivo.</p><p id="member-error" class="field-error" hidden role="alert"></p><button class="button primary full" type="submit">Salvar identidade</button></form></dialog>
+<dialog id="confirm-dialog" class="confirm-dialog"><div class="dialog-heading"><h2 id="confirm-title">Confirmar operação</h2></div><p id="confirm-message"></p><div class="dialog-actions"><button id="confirm-cancel" class="button subtle">Cancelar</button><button id="confirm-accept" class="button danger">Confirmar</button></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<noscript>Ative o JavaScript para utilizar o painel local.</noscript>
+</body>
+</html>

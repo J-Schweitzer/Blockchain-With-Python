@@ -1,0 +1,1 @@
+"""Demonstrações didáticas do núcleo."""
