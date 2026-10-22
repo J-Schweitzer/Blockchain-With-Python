@@ -1,0 +1,19 @@
+{
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "plataforma": "Windows-11-10.0.26100-SP0",
+  "maquina": "AMD64",
+  "processador": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "cpus_logicas": 12,
+  "identificador_processador": "Intel64 Family 6 Model 186 Stepping 2, GenuineIntel",
+  "relogio": {
+    "implementacao": "QueryPerformanceCounter()",
+    "resolucao_s": 1e-07
+  },
+  "sqlite": "3.53.1",
+  "executavel": "C:\\Users\\gabri\\OneDrive\\Documentos\\ChatGPT\\TCC João\\blockchain-tcc\\.venv\\Scripts\\python.exe",
+  "bibliotecas": {
+    "cryptography": "50.0.2",
+    "Flask": "3.1.3",
+    "waitress": "3.0.2"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "inicio_utc": "2026-10-22T02:01:49.130440+00:00",
+  "leituras": [
+    200,
+    600
+  ],
+  "lotes": [
+    10,
+    50
+  ],
+  "repeticoes": 3,
+  "sensores": 4,
+  "validadores": 3,
+  "aquecimento": "20 assinaturas/verificações sem escrita; fora da janela",
+  "carga": "sequencial, laço fechado, sem espera; banco novo por processo",
+  "latencia": "antes de assinar a leitura até commit do lote; perf_counter_ns",
+  "p95": "nearest rank ceil(0.95*n); média e DP entre repetições",
+  "exclusoes": "imports, chaves, preparação, aquecimento, consulta final, recuperação, HTTP, KDF, painel",
+  "comando": [
+    "C:\\Users\\gabri\\OneDrive\\Documentos\\ChatGPT\\TCC João\\blockchain-tcc\\.venv\\Scripts\\python.exe",
+    "experimentos.py",
+    "resultados\\execucao-final"
+  ],
+  "diretorio": "C:\\Users\\gabri\\OneDrive\\Documentos\\ChatGPT\\TCC João\\blockchain-tcc"
+}
