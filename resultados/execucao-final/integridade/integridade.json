@@ -1,0 +1,28 @@
+{
+  "cenarios": [
+    {
+      "cenario": "valor alterado",
+      "rejeitado": true,
+      "motivo": "bloco 1: conteúdo não corresponde ao hash"
+    },
+    {
+      "cenario": "valor alterado e hash recalculado",
+      "rejeitado": true,
+      "motivo": "bloco 1: assinatura do validador inválida"
+    },
+    {
+      "cenario": "reenvio confirmado",
+      "rejeitado": true,
+      "motivo": "transação repetida (replay)"
+    },
+    {
+      "cenario": "nova leitura de sensor revogado",
+      "rejeitado": true,
+      "motivo": "transação rejeitada: estrutura, autorização ou assinatura inválida"
+    }
+  ],
+  "historico_valido_apos_revogacao": true,
+  "banco_preservado_apos_copias_e_replay": true,
+  "hash_banco_antes_laboratorio": "0ecdec7ed0b028c1076a2d453aace3976eba266c4965ec11aef34515cf85d4d4",
+  "observacao": "Adulterações feitas em cópia da lista; revogação persistida no banco exclusivo do experimento."
+}

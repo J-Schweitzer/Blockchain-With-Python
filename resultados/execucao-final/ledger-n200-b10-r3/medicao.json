@@ -1,0 +1,22 @@
+{
+  "modo": "ledger",
+  "leituras": 200,
+  "por_lote": 10,
+  "lotes": 20,
+  "tempo_s": 0.9620728,
+  "tps": 207.8844761020164,
+  "latencia_media_ms": 46.4620455,
+  "latencia_mediana_ms": 48.43195,
+  "latencia_p95_ms": 73.009,
+  "cpu_s": 0.6875,
+  "cpu_um_nucleo_pct": 71.46028866006814,
+  "pico_processo_mib": 31.69140625,
+  "banco_bytes": 106496,
+  "validar_final_ms": 68.9269,
+  "reabrir_carregar_ms": 82.0021,
+  "pragmas": {
+    "journal_mode": "delete",
+    "synchronous": 2,
+    "page_size": 4096
+  }
+}
