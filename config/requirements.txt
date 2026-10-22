@@ -1,0 +1,4 @@
+# Dependências diretas utilizadas na validação das etapas 1 a 4.
+cryptography==50.0.2
+Flask==3.1.3
+waitress==3.0.2
