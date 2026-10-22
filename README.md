@@ -1,40 +1,110 @@
-# Blockchain privada (protótipo didático)
+# Blockchain IoT · TCC
 
-Marcos implementados: **I1** (núcleo) e **I2** (permissão e consenso).
+Protótipo Python para demonstrar integridade, autoria e rastreabilidade de
+leituras IoT: Ed25519, SHA-256, cadastro versionado, prevenção de replay,
+persistência SQLite, API autenticada e painel local.
 
-| Arquivo | Função |
-|---|---|
-| `nucleo.py` | `Transacao`, `Bloco`, `Cadeia`, hash SHA-256, validação da cadeia, consenso Proof of Authority em rodízio |
-| `identidade.py` | Chaves Ed25519, assinatura e `Registro` de membros autorizados (papel da CA) |
-| `armazenamento.py` | Persistência dos blocos em SQLite |
-| `teste_i1_i2.py` | 13 testes automatizados |
-| `demo.py` | Demonstração em terminal |
+## Iniciar com um comando
 
-
-## Executar
+Instale **Python 3.12 ou superior** com `venv` e `pip`. No Windows, abra o
+**Git Bash** na pasta extraída; no Linux/macOS, use um terminal Bash.
+É necessário acesso à internet na primeira instalação.
 
 ```bash
-pip install cryptography
-python demo.py
-python -m unittest -v
+bash executar.sh
 ```
 
-## Decisões de projeto
+O script cria `.venv`, baixa as dependências e instala o pacote Python.
+Na primeira execução, prepara três autoridades e dois sensores em
+`dados/apresentacao/`. Nas próximas, reutiliza o histórico confirmado.
 
-- **Hash do bloco:** SHA-256 sobre JSON canônico (chaves ordenadas) do cabeçalho: índice, timestamp, transações, hash anterior e validador.
-- **Permissão:** só dispositivos cadastrados com papel `dispositivo` gravam transações; só validadores cadastrados produzem blocos. A assinatura é conferida na entrada e de novo em `validar()`.
-- **Consenso (PoA):** o bloco de índice *i* é do validador `validadores[(i-1) % n]`. Bloco fora da vez é recusado. A finalidade é determinística.
-- **Rastreabilidade:** `Cadeia.historico(dispositivo)` devolve todas as leituras com o bloco de origem.
+1. Escolha uma senha de pelo menos 12 caracteres para cifrar as chaves.
+2. Ao iniciar a API, informe a mesma senha e escolha um token administrativo
+   com 32 a 256 caracteres ASCII, sem espaços. As entradas ficam ocultas.
+3. Abra **http://127.0.0.1:5000/painel** e informe esse mesmo token.
+4. Gere leituras simuladas e produza um bloco. Use **Integridade** para a
+   demonstração em cópia, que preserva o ledger original.
 
-## Limitações assumidas (citar na defesa)
+O terminal permanece executando o servidor. **Ctrl+C** encerra o serviço.
+Senhas e tokens não são gravados pelo script. Reabrir o painel exige o token
+da sessão atual; pendências não confirmadas não sobrevivem ao encerramento.
 
-- Sem rede P2P: um único nó mantém a cadeia.
-- Sem tolerância a falhas bizantinas: PoA assume validadores honestos.
-- Sem proteção contra repetição (*replay*) de transações.
-- O problema do oráculo permanece: um sensor autorizado que envia dado falso tem o dado registrado com assinatura válida.
-- As chaves privadas vivem em memória; a persistência guarda só os blocos.
+### Opções úteis
 
-## Próximos marcos
+```bash
+bash executar.sh --ajuda
+bash executar.sh --instalar                  # Somente preparar o ambiente
+bash executar.sh --porta 5001                # Outra porta local
+bash executar.sh --dados ./dados/defesa      # Instalação independente
+bash executar.sh --sem-apresentacao         # Desabilitar o laboratório e a geração local
+bash executar.sh --graficos --instalar      # Incluir ferramenta de gráficos
+bash executar.sh --reinstalar               # Repetir instalação das dependências
+```
 
-- **I3:** API Flask (`/transacao`, `/cadeia`, `/validar`, `/historico/<dispositivo>`) e simulador de sensores.
-- **I4:** testes de adulteração via API e medição de TPS e latência.
+Dependências já preparadas são reutilizadas. Mudanças de configuração de
+instalação ou de localização do projeto provocam nova instalação do pacote.
+O Bash não instala Python nem Git Bash, não usa `sudo` e não altera bibliotecas
+globais. Uma falha interrompe a execução sem apagar dados anteriores.
+
+## Estrutura do projeto
+
+```text
+blockchain-tcc-profissional/
+├── executar.sh                  # Instalação e inicialização
+├── pyproject.toml               # Pacote Python, dependências e comandos
+├── README.md
+├── config/                      # Dependências fixadas da aplicação e gráficos
+├── src/blockchain_tcc/           # Código Python da aplicação
+│   ├── nucleo.py                # Blocos, transações e validação
+│   ├── identidade.py            # Cadastro versionado e assinaturas
+│   ├── cofre.py                 # Chaves cifradas
+│   ├── armazenamento.py         # Persistência SQLite
+│   ├── sistema.py               # Configuração e recuperação
+│   ├── servico.py               # Operações serializadas
+│   ├── api.py                   # API e painel autenticado
+│   ├── iniciar_api.py           # Inicialização com Waitress
+│   ├── preparar_demo_api.py     # Provisionamento da demonstração
+│   ├── simulador_iot.py         # Emissor de leituras assinadas
+│   ├── cliente_api.py           # Cliente administrativo HTTP
+│   ├── formato.py              # Serialização e hashes
+│   ├── demos/                  # Demonstrações do núcleo
+│   └── painel/                 # Templates, CSS, JavaScript e ícone
+├── tests/                       # Suíte funcional existente, com imports atualizados
+├── examples/                    # Guia das demonstrações
+├── tools/                       # Coleta de experimentos e geração de figuras
+├── docs/                        # Guias atuais, redação e roteiro da defesa
+│   └── historico/               # Registros das etapas no layout anterior
+├── dados/                       # Instalações geradas na execução
+└── resultados/
+    ├── execucao-final/          # Dados brutos, estatísticas e figuras da etapa 5
+    └── proveniencia/           # Fontes exatas usadas nas medições anteriores
+```
+
+## Documentação
+
+- [Guia de execução](docs/GUIA_EXECUCAO.md): Bash, instalação manual e comandos.
+- [Organização e migração](docs/ORGANIZACAO.md): caminhos e rastreabilidade.
+- [Roteiro de defesa](docs/ROTEIRO_DEFESA.md).
+- [Texto complementar para o TCC](docs/TEXTO_TCC_ATUALIZADO.md).
+- [Resultados das 24 execuções](resultados/execucao-final/RESULTADOS.md).
+- [Proveniência das medições](resultados/proveniencia/README.md).
+
+## Resultados e situação da validação
+
+A etapa 5 registrou 24 execuções e 9.600 leituras confirmadas. Os CSVs, bancos,
+figuras e configurações entregues correspondem à versão anterior à reorganização.
+A cópia exata das fontes medidas foi preservada em
+`resultados/proveniencia/fontes-medidas.zip`. A reorganização ajustou imports,
+empacotamento e caminhos; não realizou novas medições nem reexecutou os testes.
+
+Os **110 testes aprovados na etapa 4** são evidência daquela versão. A suíte
+foi mantida em `tests/`, com os endereços de módulos atualizados. As instruções
+para execução manual estão no guia; o instalador não roda testes ou benchmarks.
+
+## Limites do protótipo
+
+O sistema executa localmente, com uma regra de rodízio entre identidades de
+autoridade. Não há consenso distribuído, replicação P2P ou sensor físico.
+Assinaturas verificam autoria e integridade, sem comprovar a veracidade física
+do valor. Os experimentos não medem Ethereum/Fabric, HTTP ou a interface.
+O serviço escuta somente em `127.0.0.1`. O PDF original não foi modificado.
