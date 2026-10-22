@@ -1,0 +1,22 @@
+{
+  "modo": "sqlite",
+  "leituras": 600,
+  "por_lote": 10,
+  "lotes": 60,
+  "tempo_s": 0.7362309,
+  "tps": 814.9617192106443,
+  "latencia_media_ms": 11.662466166666666,
+  "latencia_mediana_ms": 10.98535,
+  "latencia_p95_ms": 18.2353,
+  "cpu_s": 0.21875,
+  "cpu_um_nucleo_pct": 29.712146012888073,
+  "pico_processo_mib": 32.8203125,
+  "banco_bytes": 286720,
+  "validar_final_ms": null,
+  "reabrir_carregar_ms": 9.1249,
+  "pragmas": {
+    "journal_mode": "delete",
+    "synchronous": 2,
+    "page_size": 4096
+  }
+}
