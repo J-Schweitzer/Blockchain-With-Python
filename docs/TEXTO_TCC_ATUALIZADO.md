@@ -5,6 +5,9 @@ substitui o trabalho completo nem altera sua revisão bibliográfica. Os título
 abaixo correspondem às seções que precisam ser revisadas. Os dados referem-se
 à versão evoluída em Windows; a execução anterior com 13 testes em Linux deve
 permanecer identificada como evidência histórica, se for mantida no texto.
+Este complemento é histórico: a verificação mais recente, de 2 de novembro
+de 2026, aprovou 113 testes após a inclusão do fluxo de credenciais locais.
+O artigo LaTeX atualizado é a referência para a entrega.
 
 ## Resumo das mudanças necessárias
 
@@ -17,7 +20,7 @@ permanecer identificada como evidência histórica, se for mantida no texto.
 | 5.1 a 5.7 e Tabela 3 | Atualizar arquitetura, transações, cadastro, cofre, API, painel e ordem de persistência |
 | Figuras 2 e 3 | Incluir API/painel, registro persistente e commit anterior à alteração em memória |
 | 5.8 e 5.9 | Atualizar controles existentes, mantendo limites do modelo local e do administrador |
-| 6.1, 6.2 e Tabela 4 | Identificar os 110 testes da etapa 4; chave falsa passa a ser recusada antes da gravação |
+| 6.1, 6.2 e Tabela 4 | Identificar os 110 testes da etapa 4 como históricos e os 113 da verificação atual; chave falsa é recusada antes da gravação |
 | 6.3 | Incluir resultados medidos, com definições e limitações |
 | 8.1 a 8.3 | Rever limitações já corrigidas e acrescentar ameaças à validade experimental |
 | 10 | Atualizar entregas, resultados e trabalhos futuros |

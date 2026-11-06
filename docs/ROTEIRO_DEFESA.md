@@ -2,19 +2,22 @@
 
 ## Antes da apresentação
 
-Prepare uma pasta nova, evitando o histórico usado para os experimentos. Na
-pasta do projeto:
+Preencha `credenciais.local.txt` com a senha das chaves e o token administrativo
+antes da apresentação. Se `dados/defesa` já tiver sido preparada, use a senha
+que cifrou as chaves dessa pasta. Mantenha o arquivo privado: ele contém os
+segredos em texto simples e pode ser sincronizado pelo OneDrive.
 
-```powershell
-.\.venv\Scripts\python.exe -m blockchain_tcc.preparar_demo_api .\dados\defesa
-.\.venv\Scripts\python.exe -m blockchain_tcc.iniciar_api .\dados\defesa --apresentacao
+No Git Bash, na pasta do projeto, use uma instalação de dados separada da coleta:
+
+```bash
+PYTHON=/c/Users/joaos/AppData/Local/Python/bin/python.exe bash executar.sh --dados dados/defesa --porta 5001
 ```
 
-O preparador solicita a senha das chaves; a API solicita essa mesma senha e um
-token administrativo. Guarde ambos durante a sessão. Abra
-`http://127.0.0.1:5000/painel` e informe o token. Consulte os requisitos de senha
-e token em `ETAPA_4.md`. Ao reutilizar uma instalação preparada, execute apenas
-o segundo comando. Não execute novamente o preparador na mesma pasta.
+O script instala o ambiente se necessário, prepara `dados/defesa` somente se
+ela não existir e inicia o servidor. Abra `http://127.0.0.1:5001/painel`
+e digite o mesmo `TOKEN_ADMIN` do arquivo. Se a porta 5001 estiver ocupada,
+escolha outra com `--porta`. O token deve ter 32 a 256 caracteres ASCII sem
+espaços; a senha das chaves, ao menos 12 caracteres.
 
 ## Sequência sugerida (8 a 10 minutos)
 
@@ -73,7 +76,7 @@ sequencial. HTTP, navegador e descriptografia de chaves ficam fora da janela.
   novamente. Recarregar remove o token da memória da aba.
 - Fila com leitura de sensor revogado: use o descarte explícito daquela pendência
   ou prepare uma nova pasta em outro nome. Não altere o banco manualmente.
-- Para mostrar persistência: encerre a API e reabra com a mesma pasta e senha;
-  defina o token da nova sessão. Somente blocos confirmados são recuperados.
+- Para mostrar persistência: encerre a API e repita o mesmo comando com a
+  mesma pasta e credenciais. Somente blocos confirmados são recuperados.
 - Se precisar mostrar os resultados sem executar carga, use os arquivos e as
   figuras já entregues. Não é necessário rodar o benchmark durante a defesa.

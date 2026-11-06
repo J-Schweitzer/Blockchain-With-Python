@@ -7,6 +7,7 @@ import tempfile
 from pathlib import Path
 
 from blockchain_tcc.cofre import CofreChaves, senha_bytes
+from blockchain_tcc.credenciais import ler_credenciais
 from blockchain_tcc.identidade import Identidade
 from blockchain_tcc.nucleo import ErroBlockchain
 from blockchain_tcc.sistema import Sistema, publicar_pasta
@@ -41,11 +42,15 @@ def preparar(pasta, senha):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("pasta")
+    parser.add_argument("--credenciais", help="arquivo local com SENHA_CHAVES e TOKEN_ADMIN")
     args = parser.parse_args(argv)
     try:
-        senha = getpass.getpass("Senha para cifrar as chaves (mínimo 12 caracteres): ")
-        if senha != getpass.getpass("Confirme a senha: "):
-            raise ValueError("as senhas não coincidem")
+        if args.credenciais:
+            senha, _ = ler_credenciais(args.credenciais)
+        else:
+            senha = getpass.getpass("Senha para cifrar as chaves (mínimo 12 caracteres): ")
+            if senha != getpass.getpass("Confirme a senha: "):
+                raise ValueError("as senhas não coincidem")
         pasta = preparar(args.pasta, senha)
         print(f"Demonstração preparada em {pasta}")
         print("Sensores: sensor-temp-01 (°C) e sensor-umid-01 (%).")

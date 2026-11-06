@@ -1,0 +1,6 @@
+.venv/
+credenciais*.txt
+dados/*/
+__pycache__/
+*.py[cod]
+*.egg-info/

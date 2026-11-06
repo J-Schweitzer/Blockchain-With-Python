@@ -6,6 +6,7 @@ import sys
 from waitress import serve
 
 from blockchain_tcc.api import create_app
+from blockchain_tcc.credenciais import ler_credenciais
 from blockchain_tcc.nucleo import ErroBlockchain
 
 
@@ -14,12 +15,16 @@ def main(argv=None):
     parser.add_argument("pasta", help="instalação criada na etapa 2 ou por preparar_demo_api.py")
     parser.add_argument("--porta", type=int, default=5000)
     parser.add_argument("--apresentacao", action="store_true", help="habilita geração local de leituras e laboratório em cópia")
+    parser.add_argument("--credenciais", help="arquivo local com SENHA_CHAVES e TOKEN_ADMIN")
     args = parser.parse_args(argv)
     if not 1024 <= args.porta <= 65535:
         parser.error("use uma porta entre 1024 e 65535")
     try:
-        senha = getpass.getpass("Senha das chaves dos validadores: ")
-        token = getpass.getpass("Token administrativo (32 a 256 caracteres, sem espaços): ")
+        if args.credenciais:
+            senha, token = ler_credenciais(args.credenciais)
+        else:
+            senha = getpass.getpass("Senha das chaves dos validadores: ")
+            token = getpass.getpass("Token administrativo (32 a 256 caracteres, sem espaços): ")
         app = create_app(args.pasta, senha, token, modo_apresentacao=args.apresentacao)
         del senha, token
         print(f"API disponível em http://127.0.0.1:{args.porta}; Ctrl+C para encerrar.", flush=True)

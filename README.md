@@ -4,6 +4,12 @@ Protótipo Python para demonstrar integridade, autoria e rastreabilidade de
 leituras IoT: Ed25519, SHA-256, cadastro versionado, prevenção de replay,
 persistência SQLite, API autenticada e painel local.
 
+## Artigo LaTeX
+
+A versão revisada do paper está em `docs/paper/paper.tex`, junto de
+`docs/paper/references.bib` e `docs/paper/figura_desempenho.png`.
+No Overleaf, use `paper.tex` como arquivo principal.
+
 ## Iniciar com um comando
 
 Instale **Python 3.12 ou superior** com `venv` e `pip`. No Windows, abra o
@@ -14,20 +20,31 @@ Instale **Python 3.12 ou superior** com `venv` e `pip`. No Windows, abra o
 bash executar.sh
 ```
 
+No computador desta entrega, se o Git Bash não localizar o Python real,
+use o caminho explícito e uma porta livre:
+
+```bash
+PYTHON=/c/Users/joaos/AppData/Local/Python/bin/python.exe bash executar.sh --porta 5001
+```
+
 O script cria `.venv`, baixa as dependências e instala o pacote Python.
 Na primeira execução, prepara três autoridades e dois sensores em
 `dados/apresentacao/`. Nas próximas, reutiliza o histórico confirmado.
 
-1. Escolha uma senha de pelo menos 12 caracteres para cifrar as chaves.
-2. Ao iniciar a API, informe a mesma senha e escolha um token administrativo
-   com 32 a 256 caracteres ASCII, sem espaços. As entradas ficam ocultas.
-3. Abra **http://127.0.0.1:5000/painel** e informe esse mesmo token.
+1. Preencha `credenciais.local.txt` com `SENHA_CHAVES` (pelo menos 12 caracteres)
+   e `TOKEN_ADMIN` (32 a 256 caracteres ASCII, sem espaços). Não use aspas.
+2. Execute `bash executar.sh`. Ele lê o arquivo automaticamente e usa a mesma
+   senha para criar e abrir as chaves. Sem o arquivo, pede os valores no terminal.
+3. Abra **http://127.0.0.1:5000/painel** e informe o `TOKEN_ADMIN`.
 4. Gere leituras simuladas e produza um bloco. Use **Integridade** para a
    demonstração em cópia, que preserva o ledger original.
 
 O terminal permanece executando o servidor. **Ctrl+C** encerra o serviço.
-Senhas e tokens não são gravados pelo script. Reabrir o painel exige o token
-da sessão atual; pendências não confirmadas não sobrevivem ao encerramento.
+O arquivo de credenciais é texto simples e, dentro desta pasta, pode ser
+sincronizado pelo OneDrive. Guarde-o em local privado e não o compartilhe.
+O `.gitignore` exclui esse arquivo do repositório Git, mas não impede
+sincronização ou cópias manuais. Reabrir o painel exige o token da sessão atual;
+pendências não confirmadas não sobrevivem ao encerramento.
 
 ### Opções úteis
 
@@ -36,6 +53,8 @@ bash executar.sh --ajuda
 bash executar.sh --instalar                  # Somente preparar o ambiente
 bash executar.sh --porta 5001                # Outra porta local
 bash executar.sh --dados ./dados/defesa      # Instalação independente
+bash executar.sh --credenciais /c/caminho/credenciais.txt  # Outro arquivo
+bash executar.sh --interativo               # Perguntar os valores no terminal
 bash executar.sh --sem-apresentacao         # Desabilitar o laboratório e a geração local
 bash executar.sh --graficos --instalar      # Incluir ferramenta de gráficos
 bash executar.sh --reinstalar               # Repetir instalação das dependências
@@ -51,6 +70,7 @@ globais. Uma falha interrompe a execução sem apagar dados anteriores.
 ```text
 blockchain-tcc-profissional/
 ├── executar.sh                  # Instalação e inicialização
+├── credenciais.local.txt         # Senha e token locais; preencher e manter privado
 ├── pyproject.toml               # Pacote Python, dependências e comandos
 ├── README.md
 ├── config/                      # Dependências fixadas da aplicação e gráficos
@@ -58,6 +78,7 @@ blockchain-tcc-profissional/
 │   ├── nucleo.py                # Blocos, transações e validação
 │   ├── identidade.py            # Cadastro versionado e assinaturas
 │   ├── cofre.py                 # Chaves cifradas
+│   ├── credenciais.py           # Leitura do arquivo local de credenciais
 │   ├── armazenamento.py         # Persistência SQLite
 │   ├── sistema.py               # Configuração e recuperação
 │   ├── servico.py               # Operações serializadas
@@ -94,12 +115,15 @@ blockchain-tcc-profissional/
 A etapa 5 registrou 24 execuções e 9.600 leituras confirmadas. Os CSVs, bancos,
 figuras e configurações entregues correspondem à versão anterior à reorganização.
 A cópia exata das fontes medidas foi preservada em
-`resultados/proveniencia/fontes-medidas.zip`. A reorganização ajustou imports,
-empacotamento e caminhos; não realizou novas medições nem reexecutou os testes.
+`resultados/proveniencia/fontes-medidas.zip`. A reorganização e a leitura de
+credenciais locais não foram submetidas a nova coleta de desempenho.
 
-Os **110 testes aprovados na etapa 4** são evidência daquela versão. A suíte
-foi mantida em `tests/`, com os endereços de módulos atualizados. As instruções
-para execução manual estão no guia; o instalador não roda testes ou benchmarks.
+Em 2 de novembro de 2026, uma cópia da distribuição atual passou por
+instalação limpa em Windows com Python 3.15.1, `pip check` sem conflitos e
+**113 testes automatizados aprovados em 11,738 s**. O servidor local confirmou
+duas leituras em um bloco, rejeitou acesso sem token, detectou adulteração
+em cópia e recuperou o histórico após reinício. Os 110 testes da etapa 4
+permanecem como registro histórico. O instalador não roda testes ou benchmarks.
 
 ## Limites do protótipo
 

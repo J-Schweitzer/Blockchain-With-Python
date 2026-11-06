@@ -8,6 +8,9 @@ cd -- "$ROOT"
 
 PORTA=5000
 DADOS="$ROOT/dados/apresentacao"
+CREDENCIAIS="$ROOT/credenciais.local.txt"
+CREDENCIAIS_EXPLICITAS=0
+INTERATIVO_FORCADO=0
 SO_INSTALAR=0
 GRAFICOS=0
 REINSTALAR=0
@@ -24,6 +27,8 @@ local em http://127.0.0.1:5000/painel (abra esse endereço no navegador).
   --graficos              Inclui Matplotlib para exportar figuras científicas.
   --reinstalar            Repete a instalação mesmo com dependências preparadas.
   --dados CAMINHO         Pasta de dados (padrão: dados/apresentacao).
+  --credenciais ARQUIVO   Lê senha e token de um arquivo de texto UTF-8.
+  --interativo            Pede senha e token no terminal, mesmo com arquivo local.
   --porta NUMERO          Porta de 1024 a 65535 (padrão: 5000).
   --sem-apresentacao      Desabilita geração local e laboratório em cópia.
   -h, --ajuda, --help     Mostra esta ajuda.
@@ -49,6 +54,11 @@ while (($#)); do
             (($# >= 2)) || falhar 'Informe o caminho depois de --dados.'
             [[ -n "$2" ]] || falhar 'A pasta de dados não pode ser vazia.'
             DADOS="$2"; shift 2 ;;
+        --credenciais)
+            (($# >= 2)) || falhar 'Informe o caminho depois de --credenciais.'
+            [[ -n "$2" ]] || falhar 'O caminho das credenciais não pode ser vazio.'
+            CREDENCIAIS="$2"; CREDENCIAIS_EXPLICITAS=1; shift 2 ;;
+        --interativo) INTERATIVO_FORCADO=1; shift ;;
         --porta)
             (($# >= 2)) || falhar 'Informe um número depois de --porta.'
             [[ "$2" =~ ^[0-9]{4,5}$ ]] || falhar 'Porta inválida; use 1024 a 65535.'
@@ -58,6 +68,7 @@ while (($#)); do
     esac
 done
 ((PORTA >= 1024 && PORTA <= 65535)) || falhar 'Use uma porta de 1024 a 65535.'
+((CREDENCIAIS_EXPLICITAS == 0 || INTERATIVO_FORCADO == 0)) || falhar 'Escolha --credenciais ou --interativo.'
 
 PYTHON_CMD=()
 python_valido() {
@@ -109,17 +120,27 @@ if ((SO_INSTALAR)); then
     exit 0
 fi
 
-[[ -t 0 ]] || falhar 'Execute em terminal interativo para informar senha e token; para apenas instalar use --instalar.'
+ARGUMENTOS_CRED=()
+if ((INTERATIVO_FORCADO == 0)) && [[ -f "$CREDENCIAIS" ]]; then
+    ARGUMENTOS_CRED=(--credenciais "$CREDENCIAIS")
+    printf '\nUsando credenciais do arquivo local.\n'
+elif ((CREDENCIAIS_EXPLICITAS)); then
+    falhar 'O arquivo indicado em --credenciais não foi encontrado.'
+else
+    [[ -t 0 ]] || falhar 'Execute em terminal interativo ou preencha credenciais.local.txt; para apenas instalar use --instalar.'
+fi
 # Mantém o caminho no formato do Bash; Git Bash converte argumentos para Python nativo.
 INTERATIVO=("$VENV_PY")
 # Python nativo do Windows precisa de console para leitura oculta no Git Bash/mintty.
-if [[ -n "${MSYSTEM:-}" ]] && command -v winpty >/dev/null 2>&1 && [[ -t 1 ]]; then
+if ((${#ARGUMENTOS_CRED[@]} == 0)) && [[ -n "${MSYSTEM:-}" ]] && command -v winpty >/dev/null 2>&1 && [[ -t 1 ]]; then
     INTERATIVO=(winpty "$VENV_PY")
 fi
 if [[ ! -e "$DADOS" ]]; then
     printf '\n[2/3] Primeira execução: criando autoridades e sensores.\n'
-    printf 'Escolha uma senha com pelo menos 12 caracteres. Ela não será gravada.\n'
-    "${INTERATIVO[@]}" -m blockchain_tcc.preparar_demo_api "$DADOS"
+    if ((${#ARGUMENTOS_CRED[@]} == 0)); then
+        printf 'Escolha uma senha com pelo menos 12 caracteres. Ela não será gravada.\n'
+    fi
+    "${INTERATIVO[@]}" -m blockchain_tcc.preparar_demo_api "$DADOS" "${ARGUMENTOS_CRED[@]}"
 elif [[ ! -f "$DADOS/ledger.db" ]]; then
     falhar 'A pasta de dados já existe, mas não contém ledger.db. Use --dados com outra pasta ou recupere sua instalação.'
 else
@@ -127,9 +148,11 @@ else
 fi
 
 printf '\n[3/3] Iniciando o sistema.\n'
-printf 'Informe a senha escolhida na preparação e um token de 32 a 256 caracteres sem espaços.\n'
+if ((${#ARGUMENTOS_CRED[@]} == 0)); then
+    printf 'Informe a senha escolhida na preparação e um token de 32 a 256 caracteres sem espaços.\n'
+fi
 printf 'Use esse mesmo token no painel. Abra: http://127.0.0.1:%s/painel\n' "$PORTA"
 printf 'Ctrl+C encerra o serviço. Os blocos confirmados permanecem na pasta de dados.\n\n'
 ARGUMENTOS=("$DADOS" --porta "$PORTA")
 ((APRESENTACAO == 0)) || ARGUMENTOS+=(--apresentacao)
-exec "${INTERATIVO[@]}" -m blockchain_tcc.iniciar_api "${ARGUMENTOS[@]}"
+exec "${INTERATIVO[@]}" -m blockchain_tcc.iniciar_api "${ARGUMENTOS[@]}" "${ARGUMENTOS_CRED[@]}"
