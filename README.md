@@ -105,7 +105,6 @@ blockchain-tcc-profissional/
 
 - [Guia de execução](docs/GUIA_EXECUCAO.md): Bash, instalação manual e comandos.
 - [Organização e migração](docs/ORGANIZACAO.md): caminhos e rastreabilidade.
-- [Roteiro de defesa](docs/ROTEIRO_DEFESA.md).
 - [Texto complementar para o TCC](docs/TEXTO_TCC_ATUALIZADO.md).
 - [Resultados das 24 execuções](resultados/execucao-final/RESULTADOS.md).
 - [Proveniência das medições](resultados/proveniencia/README.md).
