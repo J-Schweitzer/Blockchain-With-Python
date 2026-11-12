@@ -4,11 +4,6 @@ Protótipo Python para demonstrar integridade, autoria e rastreabilidade de
 leituras IoT: Ed25519, SHA-256, cadastro versionado, prevenção de replay,
 persistência SQLite, API autenticada e painel local.
 
-## Artigo LaTeX
-
-A versão revisada do paper está em `docs/paper/paper.tex`, junto de
-`docs/paper/references.bib` e `docs/paper/figura_desempenho.png`.
-No Overleaf, use `paper.tex` como arquivo principal.
 
 ## Iniciar com um comando
 
