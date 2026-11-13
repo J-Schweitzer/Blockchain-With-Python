@@ -77,6 +77,10 @@ python_valido() {
 if [[ -n "${PYTHON:-}" ]]; then
     python_valido "$PYTHON" || falhar 'O executável indicado em PYTHON exige Python >= 3.12 com ssl, SQLite e venv.'
     PYTHON_CMD=("$PYTHON")
+elif [[ -x "$ROOT/.venv/bin/python" ]] && python_valido "$ROOT/.venv/bin/python"; then
+    PYTHON_CMD=("$ROOT/.venv/bin/python")
+elif [[ -f "$ROOT/.venv/Scripts/python.exe" ]] && python_valido "$ROOT/.venv/Scripts/python.exe"; then
+    PYTHON_CMD=("$ROOT/.venv/Scripts/python.exe")
 else
     for candidato in python3 python; do
         if command -v "$candidato" >/dev/null 2>&1 && python_valido "$candidato"; then

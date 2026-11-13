@@ -20,8 +20,8 @@ Se houver múltiplos Pythons, selecione um executável específico:
 PYTHON=/usr/bin/python3.12 bash executar.sh
 # Exemplo no Git Bash, inclusive com espaço no caminho:
 PYTHON='/c/Program Files/Python312/python.exe' bash executar.sh
-# Neste computador, em uma porta alternativa:
-PYTHON=/c/Users/joaos/AppData/Local/Python/bin/python.exe bash executar.sh --porta 5001
+# Em uma porta alternativa:
+bash executar.sh --porta 5001
 ```
 
 O script procura `python3`, `python` ou `py -3`, exige versão compatível e
@@ -82,11 +82,10 @@ para preservá-la e permita que o script crie outra no sistema escolhido.
 
 ## PowerShell: alternativa manual no Windows
 
-Neste computador, o executável de Python está no caminho usado abaixo;
-em outra máquina, substitua esse caminho pelo Python 3.12 ou superior instalado.
+No Windows com o Python Launcher, prepare o ambiente com Python 3.12 ou superior:
 
 ```powershell
-& 'C:\Users\joaos\AppData\Local\Python\bin\python.exe' -m venv .venv
+py -3 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r .\config\requirements.txt
 .\.venv\Scripts\python.exe -m pip install --no-deps -e .
 .\.venv\Scripts\python.exe -m blockchain_tcc.preparar_demo_api .\dados\apresentacao --credenciais .\credenciais.local.txt

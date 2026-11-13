@@ -14,7 +14,9 @@ aos módulos reorganizados em `src/blockchain_tcc`. Os hashes da distribuição
 atual estão no `MANIFESTO_SHA256.json` da raiz. `docs/MIGRACAO.json` relaciona
 os módulos principais anteriores e atuais.
 
-Não houve nova coleta ou execução dos testes após a reorganização. Para novas
+Após a reorganização, a verificação funcional de 2 de novembro de 2026 aprovou 113 testes. A coleta de desempenho permanece a da etapa 5. Para novas
 medições, utilize `tools/experimentos.py` após instalar o pacote e escolha
 uma pasta de resultados nova. Os resultados históricos não devem ser
 apresentados como medição de Bash, instalação ou funcionamento do novo pacote.
+
+O manifesto histórico da distribuição está em `MANIFESTO_DISTRIBUICAO_ANTERIOR.json`. O manifesto da raiz identifica os bytes da entrega atual. Os arquivos de texto da coleta foram restaurados com as quebras de linha que reproduzem os SHA-256 do manifesto experimental original.

@@ -44,7 +44,7 @@ class Sistema:
             raise FileExistsError("a pasta de destino já existe; use Sistema.abrir")
         destino.parent.mkdir(parents=True, exist_ok=True)
         # Publica a pasta somente após concluir cadastro, gênese e chaves cifradas.
-        with tempfile.TemporaryDirectory(prefix=".inicializacao-", dir=destino.parent) as tmp:
+        with tempfile.TemporaryDirectory(prefix=".s-", dir=destino.parent) as tmp:
             preparada = Path(tmp) / "sistema"
             preparada.mkdir()
             registro = Registro()

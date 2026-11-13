@@ -5,6 +5,20 @@ leituras IoT: Ed25519, SHA-256, cadastro versionado, prevenção de replay,
 persistência SQLite, API autenticada e painel local.
 
 
+## Material da banca
+
+[Artigo em PDF](docs/paper/Artigo.pdf) · [Fontes LaTeX](docs/paper/) · [Slides editáveis](docs/apresentacao/Defesa%20do%20TCC.pptx) · [Slides em PDF](docs/apresentacao/Slides%20para%20projeção.pdf) · [Roteiro de fala](docs/apresentacao/Roteiro%20de%20fala.pdf)
+
+## Abrir o painel no Windows
+
+Em uma cópia nova, execute `bash executar.sh --instalar` no Git Bash para preparar o ambiente. Depois, na raiz do repositório, abra o PowerShell e execute:
+
+```powershell
+.\.venv\Scripts\python.exe abrir_painel.py
+```
+
+Para abrir com dois cliques, crie um atalho para esse executável com o caminho completo de `abrir_painel.py` como argumento e selecione `painel.ico` como ícone. O iniciador abre o navegador na porta 5001 e usa a pasta local `dados/defesa`.
+
 ## Iniciar com um comando
 
 Instale **Python 3.12 ou superior** com `venv` e `pip`. No Windows, abra o
@@ -15,11 +29,10 @@ Instale **Python 3.12 ou superior** com `venv` e `pip`. No Windows, abra o
 bash executar.sh
 ```
 
-No computador desta entrega, se o Git Bash não localizar o Python real,
-use o caminho explícito e uma porta livre:
+Para iniciar em outra porta:
 
 ```bash
-PYTHON=/c/Users/joaos/AppData/Local/Python/bin/python.exe bash executar.sh --porta 5001
+bash executar.sh --porta 5001
 ```
 
 O script cria `.venv`, baixa as dependências e instala o pacote Python.
@@ -118,10 +131,12 @@ duas leituras em um bloco, rejeitou acesso sem token, detectou adulteração
 em cópia e recuperou o histórico após reinício. Os 110 testes da etapa 4
 permanecem como registro histórico. O instalador não roda testes ou benchmarks.
 
+Na revisão de entrega de 12 de novembro de 2026, o instalador foi executado no Git Bash com Python 3.12.14. O ambiente passou em `pip check` e nos 113 testes (9,241 s). Em dados temporários, dois blocos foram confirmados por V1 e V2. Após reiniciar o serviço pelo mesmo comando, quatro leituras foram recuperadas e o histórico foi validado.
+
 ## Limites do protótipo
 
 O sistema executa localmente, com uma regra de rodízio entre identidades de
 autoridade. Não há consenso distribuído, replicação P2P ou sensor físico.
 Assinaturas verificam autoria e integridade, sem comprovar a veracidade física
 do valor. Os experimentos não medem Ethereum/Fabric, HTTP ou a interface.
-O serviço escuta somente em `127.0.0.1`. O PDF original não foi modificado.
+O serviço escuta somente em `127.0.0.1`. O artigo de entrega está em `docs/paper/`.

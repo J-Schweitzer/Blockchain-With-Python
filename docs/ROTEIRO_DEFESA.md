@@ -10,7 +10,7 @@ segredos em texto simples e pode ser sincronizado pelo OneDrive.
 No Git Bash, na pasta do projeto, use uma instalação de dados separada da coleta:
 
 ```bash
-PYTHON=/c/Users/joaos/AppData/Local/Python/bin/python.exe bash executar.sh --dados dados/defesa --porta 5001
+bash executar.sh --dados dados/defesa --porta 5001
 ```
 
 O script instala o ambiente se necessário, prepara `dados/defesa` somente se
@@ -30,7 +30,7 @@ espaços; a senha das chaves, ao menos 12 caracteres.
    administrador local mantém o cadastro.
 3. **Do dado ao bloco (2 min).** Gere leituras, mostre a fila, produza um bloco
    e abra os detalhes. Destaque unidade, ID, timestamp, hash anterior e assinatura.
-   Produza outro bloco para mostrar a mudança da autoridade da vez.
+   Gere mais duas leituras e produza outro bloco para mostrar a mudança da autoridade da vez.
 4. **Rastreabilidade (1 min).** Abra o histórico de um sensor e relacione uma
    leitura com seu bloco. Explique que o timestamp é declarado pelo emissor.
 5. **Integridade (2 min).** Altere uma leitura na cópia do laboratório. Mostre
@@ -68,7 +68,7 @@ sensor revogado são recusadas.
 vincula conteúdo e chave, sem verificar o fenômeno físico ou calibração.
 
 **O benchmark mede o painel?** Não. Mede o núcleo com persistência, em carga
-sequencial. HTTP, navegador e descriptografia de chaves ficam fora da janela.
+sequencial e com a cadeia aberta. Nas operações sobre o ledger, o serviço HTTP reabre o banco e valida o histórico. O simulador externo envia leituras por HTTP; o painel aciona a geração no servidor.
 
 ## Se houver falha durante a demonstração
 

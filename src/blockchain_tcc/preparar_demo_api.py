@@ -22,7 +22,9 @@ def preparar(pasta, senha):
     sensores = [Identidade("sensor-temp-01"), Identidade("sensor-umid-01")]
     especificacoes = [({"grandeza": "temperatura", "unidade": "°C"}, [20, 30]),
                       ({"grandeza": "umidade_relativa", "unidade": "%"}, [40, 70])]
-    with tempfile.TemporaryDirectory(prefix=".inicializacao-", dir=destino.parent) as tmp:
+    # O cofre usa dois identificadores de 64 caracteres no caminho de cada chave.
+    # Mantenha os diretórios de preparação curtos também na criação aninhada.
+    with tempfile.TemporaryDirectory(prefix=".d-", dir=destino.parent) as tmp:
         preparada = Path(tmp) / "dados"
         with Sistema.criar(preparada, [Identidade(f"V{i}") for i in (1, 2, 3)], sensores, senha) as sistema:
             pacote = preparada / "simulador"

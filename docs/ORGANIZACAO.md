@@ -1,8 +1,6 @@
 # Organização e migração
 
-A pasta `blockchain-tcc-profissional` é a distribuição organizada. A versão
-anterior `blockchain-tcc` foi preservada como referência, sem mover ou apagar
-seus arquivos. Use a pasta profissional para iniciar esta distribuição.
+A distribuição está em `Prototipo/Blockchain-With-Python/`. As fontes usadas nas medições anteriores estão em `resultados/proveniencia/fontes-medidas.zip`.
 
 ## Critérios
 
@@ -24,9 +22,7 @@ alteração manual de `PYTHONPATH`. A instalação pelo Bash é em modo editáve
 
 Não foram alteradas as regras de assinatura, produção de blocos, autorização
 ou persistência. Foram ajustados imports, referências em mocks, invocações de
-subprocesso e descoberta das fontes para futuras medições. Esses ajustes não
-constituem uma nova validação de execução. A suíte e o Bash não foram executados
-nesta reorganização.
+subprocesso e descoberta das fontes para futuras medições. A suíte funcional foi executada após a reorganização. As medições de desempenho continuam associadas à versão arquivada.
 
 ## Caminhos principais
 
@@ -47,7 +43,4 @@ nesta reorganização.
 e depois da organização. Os resultados históricos continuam associados às
 fontes originais em `resultados/proveniencia/fontes-medidas.zip`.
 
-O `.rar` entrega o projeto inteiro, incluindo bancos sintéticos do experimento,
-mas não inclui ambiente virtual, caches, pasta temporária, dados operacionais,
-senhas ou chaves privadas de instalações. O ambiente é criado no computador
-de destino pelo script. Resultados sintéticos não são dados operacionais.
+Os bancos em `resultados/` contêm dados sintéticos da pesquisa. O ambiente virtual e os dados da demonstração são preparados localmente.

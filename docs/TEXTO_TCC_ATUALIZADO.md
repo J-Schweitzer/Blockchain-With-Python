@@ -5,7 +5,7 @@ substitui o trabalho completo nem altera sua revisão bibliográfica. Os título
 abaixo correspondem às seções que precisam ser revisadas. Os dados referem-se
 à versão evoluída em Windows; a execução anterior com 13 testes em Linux deve
 permanecer identificada como evidência histórica, se for mantida no texto.
-Este complemento é histórico: a verificação mais recente, de 2 de novembro
+Este complemento é histórico: a verificação de 2 de novembro
 de 2026, aprovou 113 testes após a inclusão do fluxo de credenciais locais.
 O artigo LaTeX atualizado é a referência para a entrega.
 
@@ -36,7 +36,7 @@ com dois volumes de dados, 200 e 600 leituras, e dois tamanhos de agrupamento,
 10 e 50 leituras por confirmação. Foram realizadas três repetições por
 combinação para dois modos: ledger Python com persistência SQLite e controle
 convencional em SQLite. O desenho totalizou 24 execuções. Cada execução foi
-realizada em um processo Python novo e em banco exclusivo, inicialmente vazio.
+realizada em um processo Python novo e em banco exclusivo, sem leituras da carga e, no ledger, com configuração e gênese já criados.
 Os modos foram alternados entre repetições para reduzir o efeito de uma ordem
 fixa de execução. Não houve descarte de observações.
 
@@ -52,10 +52,10 @@ operações com garantias diferentes, sem isolar o custo de cada mecanismo.
 
 A carga foi sequencial, sem intervalo artificial entre leituras, e não modelou
 clientes concorrentes nem taxas externas de chegada. A confirmação foi definida
-como o retorno do commit local. O throughput correspondeu ao número de leituras
+como o retorno da operação do lote após o commit local. O throughput correspondeu ao número de leituras
 confirmadas dividido pela duração da carga, medida com relógio monotônico de
 alta resolução. A latência individual começou imediatamente antes da construção
-e assinatura da leitura e terminou no retorno do commit de seu lote. Assim,
+e assinatura da leitura e terminou no retorno da confirmação de seu lote. Assim,
 a latência incluiu a espera pelas demais leituras do mesmo lote. O timestamp
 declarado no conteúdo da leitura não foi usado para medir essa duração.
 
